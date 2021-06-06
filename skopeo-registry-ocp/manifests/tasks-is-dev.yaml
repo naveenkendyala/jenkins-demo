@@ -1,0 +1,17 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    build: demo-tasks
+  name: demo-tasks
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - name: 0.0-0
+    from:
+      kind: DockerImage
+      name: image-registry.openshift-image-registry.svc:5000/demo-tasks-dev/demo-tasks:0.0-0
+    importPolicy: {}
+    referencePolicy:
+      type: Source

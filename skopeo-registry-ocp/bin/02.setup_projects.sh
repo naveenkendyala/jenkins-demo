@@ -29,6 +29,4 @@ if [ "$FROM_JENKINS" = "true" ]; then
   oc annotate namespace ${GUID}-tasks-prod openshift.io/requester=${USER} --overwrite
 fi
 
-
-
 echo "****** Done setting up projects ********"

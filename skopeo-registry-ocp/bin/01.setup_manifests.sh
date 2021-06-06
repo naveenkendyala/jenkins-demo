@@ -11,6 +11,7 @@ fi
 GUID=$1
 
 cp -fr ./manifests_bkup/*.yaml ./manifests/.
+cp -fr ./manifests_bkup/*.yml ./manifests/.
 
 
 gsed -i "s/GUID/$GUID/g" ./manifests/*.yaml
