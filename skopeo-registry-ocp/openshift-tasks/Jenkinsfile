@@ -167,7 +167,7 @@ pipeline {
         script {
           sh "ls -lrt /usr/bin"
           //sleep(300)
-          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:c602260e-64eb-4246-af4e-9862908c17a7 docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/${imageName}:${devTag} docker://nexus-registry-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/${imageName}:${devTag}"
+          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:2bf7ca1f-a934-41df-a41c-c46fbceb7c59 docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/${imageName}:${devTag} docker://nexus-registry-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/${imageName}:${devTag}"
 
           // Tag the built image with the production tag.
           openshift.withCluster() {
@@ -199,9 +199,9 @@ pipeline {
               openshift.set("image", "dc/${destApp}", "${destApp}=image-registry.openshift-image-registry.svc:5000/${devProject}/${imageName}:${prodTag}")
               openshift.set("env", "dc/${destApp}", "VERSION='${prodTag} (${destApp})'")
 
+              //Code before the environment variable was added
               //def dc = openshift.selector("dc/${destApp}").object()
               //dc.spec.template.spec.containers[0].image = "image-registry.openshift-image-registry.svc:5000/${devProject}/${imageName}:${prodTag}"
-              //dc.spec.template.spec.containers[0].env=[map["name:VERSION value :'${prodTag} ${destApp}'"]]
               //openshift.apply(dc)
               
 

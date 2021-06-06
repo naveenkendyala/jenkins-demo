@@ -199,9 +199,9 @@ pipeline {
               openshift.set("image", "dc/${destApp}", "${destApp}=image-registry.openshift-image-registry.svc:5000/${devProject}/${imageName}:${prodTag}")
               openshift.set("env", "dc/${destApp}", "VERSION='${prodTag} (${destApp})'")
 
+              //Code before the environment variable was added
               //def dc = openshift.selector("dc/${destApp}").object()
               //dc.spec.template.spec.containers[0].image = "image-registry.openshift-image-registry.svc:5000/${devProject}/${imageName}:${prodTag}"
-              //dc.spec.template.spec.containers[0].env=[map["name:VERSION value :'${prodTag} ${destApp}'"]]
               //openshift.apply(dc)
               
 
