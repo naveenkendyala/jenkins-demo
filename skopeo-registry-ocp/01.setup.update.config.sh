@@ -14,10 +14,10 @@ NEXUS_URL="http://$(oc get route/nexus --template='{{ .spec.host }}')"
 NEXUS_REGISTRY_URL=$(oc get route/nexus-registry --template='{{ .spec.host }}')
 
 # Make a copy of the Nexus Template and replace the values
-cp openshift-tasks/nexus.settings.template.xml openshift-tasks/nexus.settings.xml
-gsed -i "s,NEXUS_URL,$NEXUS_URL,g" openshift-tasks/nexus.settings.xml
-gsed -i "s/NEXUS_USER/$NEXUS_USER/g" openshift-tasks/nexus.settings.xml
-gsed -i "s/NEXUS_PASSWORD/$NEXUS_PASSWORD/g" openshift-tasks/nexus.settings.xml
+cp openshift-tasks/nexus.settings.template.xml openshift-tasks/nexus_settings.xml
+gsed -i "s,NEXUS_URL,$NEXUS_URL,g" openshift-tasks/nexus_settings.xml
+gsed -i "s/NEXUS_USER/$NEXUS_USER/g" openshift-tasks/nexus_settings.xml
+gsed -i "s/NEXUS_PASSWORD/$NEXUS_PASSWORD/g" openshift-tasks/nexus_settings.xml
 
 # Make a copy of the Jenkinsfile Template. Update SonarQube and Nexus values
 cp openshift-tasks/Jenkinsfile.template openshift-tasks/Jenkinsfile
