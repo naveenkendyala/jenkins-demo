@@ -19,8 +19,8 @@ cp -fr ./manifests_template/*.yml ./manifests/.
 gsed -i "s/GUID/$GUID/g" ./manifests/*.yaml
 gsed -i "s/GUID/$GUID/g" ./manifests/*.yml
 
-#These will error out and need to be updated manually
-gsed -i "s/GIT_REPO/$GIT_REPO/g" ./manifests/*.yaml
-gsed -i "s/GIT_REPO/$GIT_REPO/g" ./manifests/*.yaml
-gsed -i "s/JENKINS_FILE_PATH/$JENKINS_FILE_PATH/g" ./manifests/*.yaml
-gsed -i "s/JENKINS_FILE_PATH/$JENKINS_FILE_PATH/g" ./manifests/*.yaml
+#These may error out and need to be updated manually
+gsed -i "s, GIT_REPO, $GIT_REPO, g" ./manifests/*.yaml
+gsed -i "s, GIT_REPO, $GIT_REPO, g" ./manifests/*.yaml
+gsed -i "s, JENKINS_FILE_PATH, $JENKINS_FILE_PATH, g" ./manifests/*.yaml
+gsed -i "s, JENKINS_FILE_PATH, $JENKINS_FILE_PATH, g" ./manifests/*.yaml

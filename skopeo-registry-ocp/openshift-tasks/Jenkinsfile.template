@@ -60,7 +60,7 @@ pipeline {
       steps {
         script {
           echo "Running Code Analysis"
-          sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-demo-sonarqube.apps.cluster-9c33.9c33.example.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag} -f ./openshift-tasks/pom.xml "
+          sh "${mvnCmd} sonar:sonar -Dsonar.host.url=SONARQUBE_URL/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag} -f ./openshift-tasks/pom.xml "
         }
       }
     }
@@ -69,7 +69,7 @@ pipeline {
     stage('Publish to Nexus') {
       steps {
         echo "Publish to Nexus"
-        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/repository/releases -f ./openshift-tasks/pom.xml "
+        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::NEXUS_URL/repository/releases -f ./openshift-tasks/pom.xml "
       }
     }
     // Build the OpenShift Image in OpenShift and tag it.
@@ -165,7 +165,7 @@ pipeline {
         script {
           sh "ls -lrt /usr/bin"
           //sleep(300)
-          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:62b75e03-e4c5-4a73-a2ff-c8c24a2d7c64 docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/${imageName}:${devTag} docker://nexus-registry-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/${imageName}:${devTag}"
+          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds NEXUS_USER:NEXUS_PASSWORD docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/${imageName}:${devTag} docker://NEXUS_REGISTRY_URL/${imageName}:${devTag}"
 
           // Tag the built image with the production tag.
           openshift.withCluster() {

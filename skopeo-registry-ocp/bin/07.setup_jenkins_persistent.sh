@@ -36,6 +36,7 @@ USER 1001' --name=jenkins-agent-appdev -n ${GUID}-jenkins
 # Set up ConfigMap with Jenkins Agent definition
 oc create -f ./manifests/agent-cm.yaml -n ${GUID}-jenkins
 
+echo ""
 echo "Checking if Jenkins Controller is Ready..."
 while : ; do
   AVAILABLE_REPLICAS=$(oc get dc jenkins -n ${GUID}-jenkins -o=jsonpath='{.status.availableReplicas}')
@@ -48,6 +49,7 @@ while : ; do
 done
 
 # Make sure that Jenkins Agent Build Pod has finished building
+echo ""
 echo "Checking if Jenkins Agent Build Pod Finished Building..."
 while : ; do
   AVAILABLE_REPLICAS=$(oc get pod jenkins-agent-appdev-1-build -n ${GUID}-jenkins -o=jsonpath='{.status.phase}')
