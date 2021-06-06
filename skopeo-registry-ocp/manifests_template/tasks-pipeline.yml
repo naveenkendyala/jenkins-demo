@@ -19,6 +19,7 @@ spec:
     type: Git
     git:
       #uri: GIT_REPO
-      uri:  https://github.com/naveenkendyala/ocp-jenkins-pipeline-demo.git              
+      uri:  https://github.com/naveenkendyala/jenkins-demo.git
+      ref: "main"
   triggers: []
   runPolicy: Serial
