@@ -8,6 +8,8 @@
 if [ "$#" -ne 1 ]; then
     echo "#1 Ensure you have authenticated yourself with the OpenShift Cluster ****"
     echo "#2 Ensure that you have the image pull secret in the current folder ****"
+    echo "   12821208-nkendyal-pull-secret.yml"
+    echo "   Check here on how to download : https://access.redhat.com/terms-based-registry/#/accounts"
     echo "#2 Update the variables in this file ****"
     exit 1
 fi
@@ -22,8 +24,7 @@ CLUSTER_API=https://api.cluster-9c33.9c33.example.opentlc.com:6443
 
 
 #Manifests are needed only when you want to use this script for any other project
-#bin/01.setup_manifests.sh $GUID
-
+bin/01.setup_manifests.sh $GUID $GIT_REPO $JENKINS_FILE_PATH
 bin/02.setup_projects.sh $GUID $USER $FROM_JENKINS
 bin/03.setup_dev.sh $GUID
 bin/04.setup_prod.sh $GUID
