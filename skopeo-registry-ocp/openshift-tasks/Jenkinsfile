@@ -49,7 +49,7 @@ pipeline {
     stage('Unit Tests') {
       steps {
         echo "Running Unit Tests"
-        sh "${mvnCmd} test -f ./openshift-tasks/pom.xml "
+        sh "${mvnCmd} test -f ${pomPath} "
 
         // This next step is optional.
         // It displays the results of tests in the Jenkins Task Overview
@@ -61,7 +61,7 @@ pipeline {
       steps {
         script {
           echo "Running Code Analysis"
-          sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-demo-sonarqube.apps.cluster-9c33.9c33.example.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag} -f ./openshift-tasks/pom.xml "
+          sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-demo-sonarqube.apps.cluster-9c33.9c33.example.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag} -f ${pomPath} "
         }
       }
     }
@@ -70,7 +70,7 @@ pipeline {
     stage('Publish to Nexus') {
       steps {
         echo "Publish to Nexus"
-        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/repository/releases -f ./openshift-tasks/pom.xml "
+        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/repository/releases -f ${pomPath} "
       }
     }
     // Build the OpenShift Image in OpenShift and tag it.
@@ -78,7 +78,7 @@ pipeline {
     stage('Build and Tag OpenShift Image') {
       steps {
         echo "Building OpenShift container image tasks:${devTag}"
-        sh "ls -lrt ./openshift-tasks/target/"
+        sh "ls -lrt ./skopeo-registry-ocp/openshift-tasks/target/"
         // Start Binary Build in OpenShift using the file we just published
         // The filename is openshift-tasks.war in the 'target' directory of your current
         // Jenkins workspace
@@ -86,7 +86,7 @@ pipeline {
           openshift.withCluster() {
             openshift.withProject("${devProject}") {
               echo "Building the project"
-              openshift.selector("bc", "tasks").startBuild("--from-file=./openshift-tasks/target/openshift-tasks.war", "--wait=true")
+              openshift.selector("bc", "tasks").startBuild("--from-file=./skopeo-registry-ocp/openshift-tasks/target/openshift-tasks.war", "--wait=true")
               echo "Tagging the project"
               openshift.tag("${imageName}:latest", "${imageName}:${devTag}")
             }
@@ -108,7 +108,7 @@ pipeline {
               // Recreate the Config Map which contains the users for the Tasks application
               // (just in case the properties files changed in the latest commit)
               openshift.selector('configmap', 'tasks-config').delete()
-              def configmap = openshift.create('configmap', 'tasks-config', '--from-file=./openshift-tasks/configuration/application-users.properties', '--from-file=./openshift-tasks/configuration/application-roles.properties')
+              def configmap = openshift.create('configmap', 'tasks-config', '--from-file=./skopeo-registry-ocp/openshift-tasks/configuration/application-users.properties', '--from-file=./skopeo-registry-ocp/openshift-tasks/configuration/application-roles.properties')
 
               // Deploy the development application.
               openshift.selector("dc", "tasks").rollout().latest();
@@ -203,7 +203,7 @@ pipeline {
 
               // Recreate Config Map in change config files changed in the source
               openshift.selector("configmap", "${destApp}-config").delete()
-              def configmap = openshift.create("configmap", "${destApp}-config", "--from-file=./openshift-tasks/configuration/application-users.properties", "--from-file=./openshift-tasks/configuration/application-roles.properties")
+              def configmap = openshift.create("configmap", "${destApp}-config", "--from-file=./skopeo-registry-ocp/openshift-tasks/configuration/application-users.properties", "--from-file=./skopeo-registry-ocp/openshift-tasks/configuration/application-roles.properties")
 
               // Deploy the inactive application.
               openshift.selector("dc", "${destApp}").rollout().latest();
