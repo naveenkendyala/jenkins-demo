@@ -29,8 +29,7 @@ COPY --from=builder /opt/app-root/src/skopeo/default-policy.json /etc/containers
 COPY --from=builder /opt/app-root/src/skopeo/skopeo /usr/bin\n
 USER 1001' --name=jenkins-agent-appdev -n ${GUID}-jenkins
 
-oc create secret generic git-secret --from-literal=username=subscribeken@gmail.com --from-literal=password="Login4me@"
-
+oc create secret generic git-secret --from-literal=username=xxx@gmail.com --from-literal=password="xxx"
 
 #oc new-app --template=eap72-basic-s2i --param APPLICATION_NAME=tasks --param SOURCE_REPOSITORY_URL=%%git_repo%% --param SOURCE_REPOSITORY_REF=master --param CONTEXT_DIR=/ --param MAVEN_MIRROR_URL=https://homework-nexus-registry.apps.shared-na4.na4.openshift.opentlc.com/repository/maven-all-public
 #oc set build-secret --source bc/tasks git-secret
