@@ -3,7 +3,7 @@ def prefix = "demo"
 
 // Set variable globally to be available in all stages
 // Set Maven command to always include Nexus Settings
-def mvnCmd = "mvn -s ./skopeo-registry-ocp/openshift-tasks/nexus_settings.xml"
+def mvnCmd = "mvn -s skopeo-registry-ocp/openshift-tasks/nexus_settings.xml"
 // Set Development and Production Project Names
 def devProject = "${prefix}-tasks-dev"
 def prodProject = "${prefix}-tasks-prod"
@@ -26,7 +26,7 @@ pipeline {
       steps {
         checkout scm
         script {
-          def pom = readMavenPom file: './skopeo-registry-ocp/openshift-tasks/pom.xml'
+          def pom = readMavenPom file: 'skopeo-registry-ocp/openshift-tasks/pom.xml'
           def version = pom.version
 
           // Set the tag for the development image: version + build number
@@ -41,7 +41,7 @@ pipeline {
     stage('Build War File') {
       steps {
         echo "Building version ${devTag}"
-        sh "${mvnCmd} clean package -DskipTests=true -f ./skopeo-registry-ocp/openshift-tasks/pom.xml"
+        sh "${mvnCmd} clean package -DskipTests=true -f skopeo-registry-ocp/openshift-tasks/pom.xml"
       }
     }
     // Using Maven run the unit tests
