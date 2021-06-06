@@ -33,7 +33,7 @@ pipeline {
           // Set the tag for the development image: version + build number
           devTag = "${version}-" + currentBuild.number
           // Set the tag for the production image: version
-          prodTag = "${version}"
+          prodTag = "${version}-"+ currentBuild.number
         }
       }
     }
@@ -104,6 +104,7 @@ pipeline {
             openshift.withProject("${devProject}") {
               // OpenShift 4
               openshift.set("image", "dc/tasks", "tasks=image-registry.openshift-image-registry.svc:5000/${devProject}/${imageName}:${devTag}")
+              openshift.set("env", "dc/tasks", "VERSION='${devTag} (tasks-dev)'")
 
               // Recreate the Config Map which contains the users for the Tasks application
               // (just in case the properties files changed in the latest commit)
@@ -195,8 +196,8 @@ pipeline {
               echo "Destination Application: " + destApp
 
               // Update the Image on the Production Deployment Config
+              openshift.set("env", "dc/${destApp}", "VERSION='${prodTag} ${destApp}'")
               def dc = openshift.selector("dc/${destApp}").object()
-
               dc.spec.template.spec.containers[0].image = "image-registry.openshift-image-registry.svc:5000/${devProject}/${imageName}:${prodTag}"
 
               openshift.apply(dc)
