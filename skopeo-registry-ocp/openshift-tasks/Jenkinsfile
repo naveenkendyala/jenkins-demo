@@ -42,7 +42,7 @@ pipeline {
     stage('Build War File') {
       steps {
         echo "Building version ${devTag}"
-        sh "${mvnCmd} clean package -DskipTests=true -f ./openshift-tasks/pom.xml"
+        sh "${mvnCmd} clean package -DskipTests=true -f ${pomPath}"
       }
     }
     // Using Maven run the unit tests

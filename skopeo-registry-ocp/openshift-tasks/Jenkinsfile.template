@@ -27,7 +27,7 @@ pipeline {
       steps {
         checkout scm
         script {
-          def pom = readMavenPom file: './openshift-tasks/pom.xml'
+          def pom = readMavenPom file: "${pomPath}"
           def version = pom.version
 
           // Set the tag for the development image: version + build number
@@ -42,7 +42,7 @@ pipeline {
     stage('Build War File') {
       steps {
         echo "Building version ${devTag}"
-        sh "${mvnCmd} clean package -DskipTests=true -f ./openshift-tasks/pom.xml"
+        sh "${mvnCmd} clean package -DskipTests=true -f ${pomPath}"
       }
     }
     // Using Maven run the unit tests
