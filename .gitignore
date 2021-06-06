@@ -1,23 +1,57 @@
-# Compiled class file
-*.class
+*.iml
+.idea
+target/
+build/
+.gradle/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 
-# Log file
-*.log
+.cache
 
-# BlueJ files
-*.ctxt
+# ignore macos custom attributes files
+.DS_Store
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+.settings
+.vscode
+.project
+.classpath
+docs/output/*
+/hello.txt
+.idea
+work/**/*
+!work/README.md
+#
+**/setenv.sh
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+gh-pages
+node_modules
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+.firebaserc
+firebase.json
+.firebase
+openshift-cloud-functions
+workshop-attributes.yaml
+workshop-site.yaml
+**/.factorypath
+install/kafka
+install/knative-eventing/knative-kafka.yaml
+bin/kubectl
+gh-pages
+staging-gh-pages
+
+triggers/tekton-greeter
+app.ini
+work
+temp
+tmp
+
+docker-secrets
+bin/knative.installed
