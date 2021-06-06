@@ -41,10 +41,10 @@ echo "Checking if Jenkins Controller is Ready..."
 while : ; do
   AVAILABLE_REPLICAS=$(oc get dc jenkins -n ${GUID}-jenkins -o=jsonpath='{.status.availableReplicas}')
   if [[ "$AVAILABLE_REPLICAS" == "1" ]]; then
-    echo "...Yes. Jenkins is ready."
+    echo "...Yes. Jenkins Controller is ready."
     break
   fi
-  echo "...No. Sleeping 15 seconds."
+  echo "...No. Checking in 15 seconds."
   sleep 15
 done
 
@@ -54,10 +54,10 @@ echo "Checking if Jenkins Agent Build Pod Finished Building..."
 while : ; do
   AVAILABLE_REPLICAS=$(oc get pod jenkins-agent-appdev-1-build -n ${GUID}-jenkins -o=jsonpath='{.status.phase}')
   if [[ "$AVAILABLE_REPLICAS" == "Succeeded" ]]; then
-    echo "...Yes. Jenkins Agent Build Pod has finished."
+    echo "...Yes. Jenkins Agent Build Pod Finished Building."
     break
   fi
-  echo "...No. Sleeping 15 seconds."
+  echo "...No. Checking in 15 seconds."
   sleep 15
 done
 

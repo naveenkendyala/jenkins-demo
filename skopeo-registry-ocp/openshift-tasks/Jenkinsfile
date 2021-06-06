@@ -165,7 +165,7 @@ pipeline {
         script {
           sh "ls -lrt /usr/bin"
           //sleep(300)
-          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:62b75e03-e4c5-4a73-a2ff-c8c24a2d7c64 docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/${imageName}:${devTag} docker://nexus-registry-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/${imageName}:${devTag}"
+          sh "skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:c602260e-64eb-4246-af4e-9862908c17a7 docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/${imageName}:${devTag} docker://nexus-registry-demo-nexus.apps.cluster-9c33.9c33.example.opentlc.com/${imageName}:${devTag}"
 
           // Tag the built image with the production tag.
           openshift.withCluster() {
