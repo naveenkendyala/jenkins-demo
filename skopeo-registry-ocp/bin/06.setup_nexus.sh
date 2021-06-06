@@ -7,7 +7,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 GUID=$1
-echo "Deploying Nexus"
+echo "Setting up Nexus in project ${GUID}-nexus"
 oc project $1-nexus
 oc adm policy add-scc-to-user anyuid -z default
 oc new-app sonatype/nexus3:3.21.2 --name=nexus --as-deployment-config=true
@@ -40,3 +40,4 @@ rm setup_nexus3.sh
 
 oc expose dc nexus --port=5000 --name=nexus-registry
 oc create route edge nexus-registry --service=nexus-registry --port=5000
+echo "Nexus Setup Complete"

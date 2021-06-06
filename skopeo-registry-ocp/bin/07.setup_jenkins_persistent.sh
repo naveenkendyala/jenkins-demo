@@ -36,27 +36,27 @@ USER 1001' --name=jenkins-agent-appdev -n ${GUID}-jenkins
 # Set up ConfigMap with Jenkins Agent definition
 oc create -f ./manifests/agent-cm.yaml -n ${GUID}-jenkins
 
+echo "Checking if Jenkins Controller is Ready..."
 while : ; do
-  echo "Checking if Jenkins is Ready..."
   AVAILABLE_REPLICAS=$(oc get dc jenkins -n ${GUID}-jenkins -o=jsonpath='{.status.availableReplicas}')
   if [[ "$AVAILABLE_REPLICAS" == "1" ]]; then
     echo "...Yes. Jenkins is ready."
     break
   fi
-  echo "...no. Sleeping 10 seconds."
-  sleep 10
+  echo "...No. Sleeping 15 seconds."
+  sleep 15
 done
 
 # Make sure that Jenkins Agent Build Pod has finished building
+echo "Checking if Jenkins Agent Build Pod Finished Building..."
 while : ; do
-  echo "Checking if Jenkins Agent Build Pod has finished building..."
   AVAILABLE_REPLICAS=$(oc get pod jenkins-agent-appdev-1-build -n ${GUID}-jenkins -o=jsonpath='{.status.phase}')
   if [[ "$AVAILABLE_REPLICAS" == "Succeeded" ]]; then
     echo "...Yes. Jenkins Agent Build Pod has finished."
     break
   fi
-  echo "...no. Sleeping 10 seconds."
-  sleep 10
+  echo "...No. Sleeping 15 seconds."
+  sleep 15
 done
 
 # Create the Build Config for the pipeline
@@ -65,3 +65,4 @@ oc create -f ./manifests/tasks-pipeline.yml -n ${GUID}-jenkins
 # Set the GIT creds and pass it onto the Build Config
 oc create secret generic git-secret --from-literal=username=${GIT_USER} --from-literal=password=${GIT_PASSWORD}
 oc set build-secret --source bc/tasks-pipeline git-secret -n ${GUID}-jenkins
+echo "Jenkins Setup Complete"
