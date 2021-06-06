@@ -3,7 +3,8 @@ def prefix = "demo"
 
 // Set variable globally to be available in all stages
 // Set Maven command to always include Nexus Settings
-def mvnCmd = "mvn -s ./openshift-tasks/nexus_settings.xml"
+def mvnCmd = "mvn -s ./skopeo-registry-ocp/openshift-tasks/nexus_settings.xml"
+def pomPath = "./skopeo-registry-ocp/openshift-tasks/pom.xml"
 // Set Development and Production Project Names
 def devProject = "${prefix}-tasks-dev"
 def prodProject = "${prefix}-tasks-prod"
