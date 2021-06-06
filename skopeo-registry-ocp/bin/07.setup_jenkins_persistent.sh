@@ -3,7 +3,7 @@
 if [ "$#" -ne 3 ]; then
     echo "Usage:"
     echo "  $0 GUID GIT_USER GIT_PASSWORD"
-    echo "  Example: $0 wkha https://github.com/redhat-gpte-devopsautomation/advdev_homework_template.git shared.na.openshift.opentlc.com"
+    echo "  Example: $0 demo emailid@email.com EmailPassword"
     exit 1
 fi
 

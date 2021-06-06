@@ -12,7 +12,7 @@ spec:
   strategy:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
-      jenkinsfilePath: openshift-tasks/Jenkinsfile
+      jenkinsfilePath: skopeo-registry-ocp/openshift-tasks/Jenkinsfile
       #jenkinsfilePath: JENKINS_FILE_PATH
   postCommit: {}
   source:
