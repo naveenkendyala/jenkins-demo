@@ -12,14 +12,13 @@ spec:
   strategy:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
-      #jenkinsfilePath: openshift-tasks/Jenkinsfile
-      jenkinsfilePath: JENKINS_FILE_PATH
+      jenkinsfilePath: openshift-tasks/Jenkinsfile
+      #jenkinsfilePath: JENKINS_FILE_PATH
   postCommit: {}
   source:
     type: Git
     git:
-      uri: >-        
-        GIT_REPO
-       #https://github.com/naveenkendyala/ocp-jenkins-pipeline-demo.git              
+      #uri: GIT_REPO
+      uri:  https://github.com/naveenkendyala/ocp-jenkins-pipeline-demo.git              
   triggers: []
   runPolicy: Serial

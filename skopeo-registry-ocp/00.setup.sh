@@ -6,6 +6,7 @@
 # 
 
 if [ "$#" -ne 1 ]; then
+    echo "## Pass any value as the first parameter. This check is to just remind to set values ****"
     echo "#1 Ensure you have authenticated yourself with the OpenShift Cluster ****"
     echo "#2 Ensure that you have the image pull secret in the current folder ****"
     echo "   12821208-nkendyal-pull-secret.yml"
@@ -24,10 +25,11 @@ CLUSTER_API=https://api.cluster-9c33.9c33.example.opentlc.com:6443
 
 
 #Manifests are needed only when you want to use this script for any other project
-bin/01.setup_manifests.sh $GUID $GIT_REPO $JENKINS_FILE_PATH
+#bin/01.setup_manifests.sh $GUID $GIT_REPO $JENKINS_FILE_PATH
+
 bin/02.setup_projects.sh $GUID $USER $FROM_JENKINS
-bin/03.setup_dev.sh $GUID
-bin/04.setup_prod.sh $GUID
-bin/05.setup_sonarqube.sh $GUID
-bin/06.setup_nexus.sh $GUID
-bin/07.setup_jenkins.sh $GUID $GIT_REPO $CLUSTER_API
+#bin/03.setup_dev.sh $GUID
+#bin/04.setup_prod.sh $GUID
+#bin/05.setup_sonarqube.sh $GUID
+#bin/06.setup_nexus.sh $GUID
+#bin/07.setup_jenkins.sh $GUID $GIT_REPO $CLUSTER_API
