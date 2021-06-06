@@ -12,7 +12,7 @@ GUID=$1
 USER=$2
 FROM_JENKINS=$3
 
-echo "Creating Homework Projects for GUID=${GUID} and USER=${USER}"
+echo "Creating Demo Projects for GUID=${GUID} and USER=${USER}"
 oc new-project ${GUID}-jenkins    --display-name="${GUID} Jenkins"
 oc new-project ${GUID}-tasks-dev  --display-name="${GUID} Tasks Development"
 oc new-project ${GUID}-tasks-prod --display-name="${GUID} Tasks Production"

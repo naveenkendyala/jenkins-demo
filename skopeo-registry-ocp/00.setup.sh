@@ -18,7 +18,11 @@ fi
 GUID=demo
 USER=opentlc-mgr
 FROM_JENKINS=false
+
 GIT_REPO=https://github.com/naveenkendyala/jenkins-demo.git
+GIT_USER="subscribeken@gmail.com"
+GIT_PASSWORD="Login4me@"
+
 JENKINS_FILE_PATH=skopeo-registry-ocp/openshift-tasks/Jenkinsfile
 #Example is shown below. Use the URL from the OpenShift console
 CLUSTER_API=https://api.cluster-9c33.9c33.example.opentlc.com:6443
@@ -28,8 +32,14 @@ CLUSTER_API=https://api.cluster-9c33.9c33.example.opentlc.com:6443
 #bin/01.setup_manifests.sh $GUID $GIT_REPO $JENKINS_FILE_PATH
 
 bin/02.setup_projects.sh $GUID $USER $FROM_JENKINS
-#bin/03.setup_dev.sh $GUID
-#bin/04.setup_prod.sh $GUID
-#bin/05.setup_sonarqube.sh $GUID
+echo "------------------------------------------------------------------------------------------------------------------------"
+bin/03.setup_dev.sh $GUID
+echo "------------------------------------------------------------------------------------------------------------------------"
+bin/04.setup_prod.sh $GUID
+echo "------------------------------------------------------------------------------------------------------------------------"
+bin/05.setup_sonarqube.sh $GUID
+echo "------------------------------------------------------------------------------------------------------------------------"
 #bin/06.setup_nexus.sh $GUID
-#bin/07.setup_jenkins.sh $GUID $GIT_REPO $CLUSTER_API
+echo "------------------------------------------------------------------------------------------------------------------------"
+#bin/07.setup_jenkins.sh $GUID $GIT_USER $GIT_PASSWORD
+echo "------------------------------------------------------------------------------------------------------------------------"
