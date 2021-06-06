@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "*********** Setting up production env***********"
+echo "*********** Setting Up Productiomn Env ***********"
 # Setup Production Project (initial active services: Green)
 if [ "$#" -ne 1 ]; then
     echo "Usage:"

@@ -29,10 +29,12 @@ oc rollout latest dc/nexus
 echo "Sleeping 120 seconds"
 sleep 120
 
+# Execute the Nexus Settings
 NEXUS_PASSWORD=$(oc rsh `oc get pods | grep nexus| grep Running| awk '{ print $1 }'` cat /nexus-data/admin.password)
 echo $NEXUS_PASSWORD
 curl -o setup_nexus3.sh -s https://raw.githubusercontent.com/redhat-gpte-devopsautomation/ocp_advanced_development_resources/master/nexus/setup_nexus3.sh
 chmod +x setup_nexus3.sh
+# $1: Nexus UserID, $2: Nexus Password, $3: Nexus URL
 ./setup_nexus3.sh admin $NEXUS_PASSWORD http://$(oc get route nexus --template='{{ .spec.host }}')
 rm setup_nexus3.sh
 

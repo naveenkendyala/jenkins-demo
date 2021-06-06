@@ -25,4 +25,5 @@ oc set probe dc/sonarqube --liveness --failure-threshold 3 --initial-delay-secon
 oc set probe dc/sonarqube --readiness --failure-threshold 3 --initial-delay-seconds 20 --get-url=http://:9000/about
 oc patch dc/sonarqube --type=merge -p '{"spec": {"template": {"metadata": {"labels": {"tuned.openshift.io/elasticsearch": "true"}}}}}'
 oc rollout resume dc sonarqube
+echo "SonarQube Setup Complete"
 

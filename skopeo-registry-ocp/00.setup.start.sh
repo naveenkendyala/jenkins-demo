@@ -5,8 +5,8 @@
 # Example is below
 # 
 
-if [ "$#" -ne 1 ]; then
-    echo "## Pass any value as the first parameter. This check is to just remind to set values ****"
+if [ "$#" -ne 2 ]; then
+    echo "## Pass $GIT_USER GIT_PASSWORD ****"
     echo "#1 Ensure you have authenticated yourself with the OpenShift Cluster ****"
     echo "#2 Ensure that you have the image pull secret in the current folder ****"
     echo "   12821208-nkendyal-pull-secret.yml"
@@ -20,8 +20,8 @@ USER=opentlc-mgr
 FROM_JENKINS=false
 
 GIT_REPO=https://github.com/naveenkendyala/jenkins-demo.git
-GIT_USER="subscribeken@gmail.com"
-GIT_PASSWORD="Login4me@"
+GIT_USER=$1
+GIT_PASSWORD=$2
 
 JENKINS_FILE_PATH=skopeo-registry-ocp/openshift-tasks/Jenkinsfile
 #Example is shown below. Use the URL from the OpenShift console
@@ -39,7 +39,7 @@ bin/04.setup_prod.sh $GUID
 echo "------------------------------------------------------------------------------------------------------------------------"
 bin/05.setup_sonarqube.sh $GUID
 echo "------------------------------------------------------------------------------------------------------------------------"
-#bin/06.setup_nexus.sh $GUID
+bin/06.setup_nexus.sh $GUID
 echo "------------------------------------------------------------------------------------------------------------------------"
 #bin/07.setup_jenkins.sh $GUID $GIT_USER $GIT_PASSWORD
 echo "------------------------------------------------------------------------------------------------------------------------"
