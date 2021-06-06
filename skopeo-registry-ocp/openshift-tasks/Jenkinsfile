@@ -27,7 +27,7 @@ pipeline {
       steps {
         checkout scm
         script {
-          def pom = readMavenPom file: './openshift-tasks/pom.xml'
+          def pom = readMavenPom file: "${pomPath}"
           def version = pom.version
 
           // Set the tag for the development image: version + build number
