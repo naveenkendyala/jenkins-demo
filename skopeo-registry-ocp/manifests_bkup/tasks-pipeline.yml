@@ -1,0 +1,31 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: tasks-pipeline
+  namespace: 800b-jenkins
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/sarat-test/buildconfigs/tasks-pipeline
+  uid: 04a94278-fc1c-4118-a8c0-61f8e5569a49
+  resourceVersion: '42935002'
+  creationTimestamp: '2020-08-01T18:32:41Z'
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","metadata":{"annotations":{},"name":"tasks-pipeline","namespace":"sarat-test"},"spec":{"source":{"git":{"uri":"https://homework-gitea.apps.shared-na4.na4.openshift.opentlc.com/srinivas.sarat.yadavalli-ibm.com/ocp4_app_deploy_homework_template.git"},"type":"Git"},"strategy":{"jenkinsPipelineStrategy":{"jenkinsfilePath":"openshift-tasks/Jenkinsfile"},"type":"JenkinsPipeline"}}}
+spec:
+  nodeSelector: null
+  output: {}
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: openshift-tasks/Jenkinsfile
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: >-
+        https://homework-gitea.apps.shared-na4.na4.openshift.opentlc.com/srinivas.sarat.yadavalli-ibm.com/ocp4_app_deploy_homework_template.git
+  triggers: []
+  runPolicy: Serial
